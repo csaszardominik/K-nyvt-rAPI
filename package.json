@@ -1,0 +1,32 @@
+{
+  "name": "k-nyvt-rapi",
+  "version": "1.0.0",
+  "description": "Library app",
+  "homepage": "https://github.com/csaszardominik/K-nyvt-rAPI#readme",
+  "bugs": {
+    "url": "https://github.com/csaszardominik/K-nyvt-rAPI/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csaszardominik/K-nyvt-rAPI.git"
+  },
+  "license": "ISC",
+  "author": "CSD",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "mysql": "^2.18.1",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

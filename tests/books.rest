@@ -1,0 +1,43 @@
+@host = http://localhost
+@port = {{$dotenv APP_PORT}}
+@server = {{host}}:{{port}}
+
+### DB test
+GET {{server}}
+Content-Type: application/json
+
+### Get all books
+GET {{server}}/api/books
+Content-Type: application/json
+
+### Get a specific book
+GET {{server}}/api/books/1
+Content-Type: application/json
+
+### Add new book
+POST {{server}}/api/books
+Content-Type: application/json
+
+{
+    "title": "asd",
+    "author": "Gábor Nád",
+    "category": "kaland", 
+    "publish_year": "2026", 
+    "available": true
+}
+
+### Update book
+PUT {{server}}/api/books/3
+Content-Type: application/json
+
+{
+    "title": "DS",
+    "author": "Gábor Nád",
+    "category": "kaland", 
+    "publish_year": "2026", 
+    "available": true
+}
+
+### Delete a specific book
+DELETE {{server}}/api/books/2
+Content-Type: application/json

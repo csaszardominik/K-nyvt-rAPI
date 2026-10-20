@@ -1,0 +1,42 @@
+@host = http://localhost
+@port = {{$dotenv APP_PORT}}
+@server = {{host}}:{{port}}
+
+### DB test
+GET {{server}}
+Content-Type: application/json
+
+### Get all readers
+GET {{server}}/api/readers
+Content-Type: application/json
+
+### Get a specific reader
+GET {{server}}/api/readers/1
+Content-Type: application/json
+
+### Add new reader
+POST {{server}}/api/readers
+Content-Type: application/json
+
+{
+    "name": "sziaaa",
+    "email": "pistaaa@gmail.com",
+    "phone": "+42364423",
+    "registered_at": "2026-10-20 11:51:50"
+
+}
+
+### Update reader
+PUT {{server}}/api/readers/4
+Content-Type: application/json
+
+{
+    "name": "Pista1",
+    "email": "pista1@gmail.com",
+    "phone": "+42364423",
+    "registered_at": "2026-10-20 11:51:50"
+}
+
+### Delete a specific reader
+DELETE {{server}}/api/readers/1
+Content-Type: application/json

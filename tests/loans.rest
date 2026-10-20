@@ -1,0 +1,43 @@
+@host = http://localhost
+@port = {{$dotenv APP_PORT}}
+@server = {{host}}:{{port}}
+
+### DB test
+GET {{server}}
+Content-Type: application/json
+
+### Get all loans
+GET {{server}}/api/loans
+Content-Type: application/json
+
+### Get a specific loan
+GET {{server}}/api/loans/2
+Content-Type: application/json
+
+### Add new loan
+POST {{server}}/api/loans
+Content-Type: application/json
+
+{
+    "book_id": 3,
+    "reader_id": 3,
+    "loan_date": "2026-5-14",
+    "due_date": "2026-12-24",
+    "return_date": "2027-5-24"
+}
+
+### Update loan
+PUT {{server}}/api/loans/2
+Content-Type: application/json
+
+{
+    "book_id": 4,
+    "reader_id": 4,
+    "loan_date": "2026-10-14",
+    "due_date": "2026-12-24",
+    "return_date": "2027-5-24"
+}
+
+### Delete a specific loan
+DELETE {{server}}/api/loans/1
+Content-Type: application/json
