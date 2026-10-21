@@ -81,4 +81,27 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+// Get available books          valamiert nem jo
+router.get('/available', (req, res) => {
+    db.query('SELECT * FROM books WHERE available = ?', [1], (error, result) => {
+        if(error){
+            return res.status(500).json({error: 'Database query error.'})
+        } else {
+            return res.status(200).json(result);
+        }
+    })
+})
+
+// Search by title              ez se jo
+router.get('/search', (req, res) => {
+    const {title} = req.body;
+    db.query('SELECT * FROM books WHERE title = ?', [title], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database query error' + err.message });
+        } else {
+            return res.status(200).json(result);
+        }
+    })
+})
+
 module.exports = router;

@@ -36,15 +36,17 @@ router.post('/', (req, res) => {
         return res.status(409).json({error: "There is no reader or book id like this!"})
     }
 
-    if(loan_date < due_date){
-        return res.status(409).json({error: "Loan date cant be before due date!"});
+    if(loan_date > due_date){
+        return res.status(409).json({error: "Loan date cant be after due date!"});
     }
 
     db.query(`INSERT INTO loans (book_id, reader_id, loan_date, due_date, return_date) VALUES (?,?,?,?,?)`, [book_id, reader_id, loan_date, due_date, return_date], (err, _result) => {
         if (err) {
             return res.status(500).json({ error: 'Database query error.' });
         }
-        return res.status(200).json({ message: 'Loan added successfully!'});
+        db.query('UPDATE books SET available=? WHERE ID =? ',[ 0, book_id], (err2, result2) => {
+            return res.status(200).json({ message: 'Loan added successfully!'});
+        })
     })
 })
 
@@ -74,6 +76,10 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     const loanId = req.params.id;
 
+    if(!loanId){
+        return res.status(400).json({error: 'This loan does not exists'});
+    }
+
     db.query('DELETE FROM loans WHERE ID = ?', [loanId], (error, result) => {
         if (error) {
             return res.status(500).json({ error: 'Database query error.' });
@@ -82,5 +88,46 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+// Return date 
+router.patch('/:id/return', (req, res) => {
+    const id = req.params.id;
 
+    db.query('UPDATE loans SET return_date = CURRENT_TIMESTAMP WHERE ID = ?', [id], (error, _result) => {
+        if (error) {
+            return res.status(500).json({ error: 'Database query error.' });
+        }
+
+        db.query('UPDATE books SET available = ? WHERE ID = ?', [1, id], (error2, _result2) => {
+            if (error2) {
+                return res.status(500).json({ error: 'Database query error.' });
+            }
+            return res.status(200).json({ message: 'Return date updated successfully!' });
+        })
+    })
+})
+
+// Get loan by id
+router.get('/:id/loan', (req, res) => {
+    const id = req.params.id;
+
+    db.query('SELECT * FROM loans WHERE ID = ?', [id], (error, result) => {
+        if (error) {
+            return res.status(500).json({ error: 'Database query error.' });
+        }
+        return res.status(200).json(result);
+    })
+})
+
+// Get active loans
+router.get('/active', (req, res) => {
+    const id = req.params.id
+    const {loan_date, due_date} = req.body;
+
+    db.query('SELECT * FROM loans WHERE ID BETWEEN loan_date AND due_date', [id, loan_date, due_date], (error, result) => {
+        if (error) {
+            return res.status(500).json({ error: 'Database query error.' });
+        }
+        return res.status(200).json(result);
+    })
+})
 module.exports = router;

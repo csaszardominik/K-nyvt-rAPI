@@ -21,9 +21,9 @@ Content-Type: application/json
 {
     "book_id": 3,
     "reader_id": 3,
-    "loan_date": "2026-5-14",
+    "loan_date": "2026-05-14",
     "due_date": "2026-12-24",
-    "return_date": "2027-5-24"
+    "return_date": "2027-05-24"
 }
 
 ### Update loan
@@ -39,5 +39,17 @@ Content-Type: application/json
 }
 
 ### Delete a specific loan
-DELETE {{server}}/api/loans/1
+DELETE {{server}}/api/loans/2
+Content-Type: application/json
+
+### Return date
+PATCH {{server}}/api/loans/3/return
+Content-Type: application/json
+
+### Get loan by id
+GET {{server}}/api/loans/3/loan
+Content-Type: application/json
+
+### Get active loans
+GET {{server}}/api/loans/active
 Content-Type: application/json

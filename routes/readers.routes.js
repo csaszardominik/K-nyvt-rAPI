@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 
 // Add new reader
 router.post('/', (req, res) => {
-    const {name, email, phone, registered_at} = req.body;
+    const {name, email, phone} = req.body;
 
     if(!name || !email){
         return res.status(409).json({error: "Missing requied fields!"});
@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
         if(result1.length > 0) {
             return res.status(409).json({error: "E-mail already in use"});
         }
-        db.query(`INSERT INTO readers (name, email, phone, registered_at) VALUES (?,?,?,?)`, [name, email, phone, registered_at], (err, _result) => {
+        db.query(`INSERT INTO readers (name, email, phone, registered_at) VALUES (?,?,?, CURRENT_TIMESTAMP)`, [name, email, phone], (err, _result) => {
             if (err) {
                 return res.status(500).json({ error: 'Database query error.' });
             }

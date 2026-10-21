@@ -19,11 +19,9 @@ POST {{server}}/api/readers
 Content-Type: application/json
 
 {
-    "name": "sziaaa",
-    "email": "pistaaa@gmail.com",
-    "phone": "+42364423",
-    "registered_at": "2026-10-20 11:51:50"
-
+    "name": "Gabi",
+    "email": "ja@gmail.com",
+    "phone": "+42364423"
 }
 
 ### Update reader

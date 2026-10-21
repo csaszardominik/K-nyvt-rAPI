@@ -41,3 +41,15 @@ Content-Type: application/json
 ### Delete a specific book
 DELETE {{server}}/api/books/2
 Content-Type: application/json
+
+### Get available books
+GET {{server}}/api/books/available
+Content-Type: application/json
+
+### Search by title
+GET {{server}}/api/books/search
+Content-Type: application/json
+
+{
+    "title": "DS"
+}
